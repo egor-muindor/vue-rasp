@@ -40,8 +40,10 @@
       return {
         dialog: false,
         drawer: null,
-        needSearchbar: this.$route.fullPath !== '/',
       };
+    },
+    computed: {
+      needSearchbar() {return this.$route.path !== '/';},
     },
     methods: {},
   };

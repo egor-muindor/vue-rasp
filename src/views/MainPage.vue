@@ -34,6 +34,21 @@
                     >
                         <v-card>
                             <v-card-text>
+                                <div class="text-center">
+                                    <span class="text--primary">
+                                        <span class="font-weight-bold">{{ lesson.day_number | convertDay }} -</span>
+                                </span>
+                                    <v-tooltip top>
+                                        <template v-slot:activator="{ on }">
+                                            <span class="text--primary" v-on="on">
+                                                <span class="font-weight-bold" style="border-bottom: 1px dashed">
+                                                    {{ lesson.lesson_number | convertPair }}</span>
+                                            </span>
+                                        </template>
+                                        <span>Время указано для групп очного образования.</span>
+                                    </v-tooltip>
+                                </div>
+                                <v-divider />
                                 <template v-if="lessonsType">
                                      <span>
                                         Группа: <strong class=" text--primary">{{lesson.group.title}}</strong>
@@ -59,31 +74,15 @@
                                         {{ auditory.title }}
                                     </span>
                                 <v-divider />
-                                <template>
-                                    <div v-for="(professor) in lesson.professors"
-                                         :key="`p-${key}-${professor.full_name}`">
+                                <div v-for="(professor) in lesson.professors"
+                                     :key="`p-${key}-${professor.full_name}`">
                                         <span
-                                                class="font-weight-bold text--primary"
+                                                class="text--primary"
                                         >
                                         {{ professor.full_name }}
                                     </span>
-                                    </div>
-                                    <v-divider />
-                                </template>
-                                <span class="text--primary">
-                                        День: <span class="font-weight-bold">{{ lesson.day_number | convertDay }}</span>
-                                </span>
-                                <br>
-                                <v-tooltip top>
-                                    <template v-slot:activator="{ on }">
-                                            <span class="text--primary" v-on="on">
-                                                Пара: <span class="font-weight-bold" style="border-bottom: 1px dashed">
-                                                    {{ lesson.lesson_number | convertPair }}</span>
-                                            </span>
-                                    </template>
-                                    <span>Время указано для групп очного образования.</span>
-                                </v-tooltip>
-                                <br>
+                                </div>
+                                <v-divider />
                                 <span class="font-weight-light" v-if="lesson.lesson_day">
                                         {{ lesson.lesson_day | convertDate }}
                                 </span>
