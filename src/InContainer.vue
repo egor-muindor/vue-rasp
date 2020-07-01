@@ -15,13 +15,14 @@
                     MPU Расписание
                 </router-link>
             </v-toolbar-title>
+
+            <v-btn outlined dark tile to="/about">О проекте</v-btn>
             <Searchbar v-if="needSearchbar" flat
                        solo-inverted class="hidden-sm-and-down pt-7" />
             <v-spacer></v-spacer>
         </v-app-bar>
         <v-main>
             <v-container
-                    class="fill-height"
                     fluid
             >
                 <slot></slot>
@@ -43,7 +44,7 @@
       };
     },
     computed: {
-      needSearchbar() {return this.$route.path !== '/';},
+      needSearchbar() {return this.$route.path !== '/' && this.$route.path !== '/about';},
     },
     methods: {},
   };
