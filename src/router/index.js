@@ -1,16 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Home from '../views/Home.vue'
-// import MainPage from '@/views/MainPage';
-import HelloWorld from '@/components/HelloWorld';
+import MainPage from '@/views/MainPage';
 
 Vue.use(VueRouter)
 
   const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: HelloWorld
+    name: 'Main page',
+    component: MainPage
   },
   {
     path: '/about',
@@ -23,6 +21,7 @@ Vue.use(VueRouter)
 ]
 
 const router = new VueRouter({
+  mode: 'history',
   routes
 })
 

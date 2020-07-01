@@ -10,16 +10,13 @@
                     style="width: 300px"
                     class="ml-0 pl-4"
             >
-                <span class="hidden-sm-and-down">Google Contacts</span>
+                <router-link class="hidden-sm-and-down" style="color: #FFFFFF; text-decoration: none;"
+                             :to="{path: '/'}">
+                    MPU Расписание
+                </router-link>
             </v-toolbar-title>
-            <v-text-field
-                    flat
-                    solo-inverted
-                    hide-details
-                    prepend-inner-icon="mdi-magnify"
-                    label="Search"
-                    class="hidden-sm-and-down"
-            ></v-text-field>
+            <Searchbar v-if="needSearchbar" flat
+                       solo-inverted class="hidden-sm-and-down pt-7" />
             <v-spacer></v-spacer>
         </v-app-bar>
         <v-main>
@@ -34,14 +31,19 @@
 </template>
 
 <script>
+  import Searchbar from '@/components/Searchbar';
+
   export default {
-    props: {
-      source: String,
+    components: {Searchbar},
+    props: {},
+    data: function() {
+      return {
+        dialog: false,
+        drawer: null,
+        needSearchbar: this.$route.fullPath !== '/',
+      };
     },
-    data: () => ({
-      dialog: false,
-      drawer: null
-    }),
+    methods: {},
   };
 </script>
 
