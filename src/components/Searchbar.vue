@@ -42,14 +42,14 @@
         this.completeSuggest(val);
       },
       selected(val) {
-        const target = this.items.find(el => (el.title === val));
-        const type = target.type;
-        this.$store.commit('updateTarget', target);
-        if (type.typeof !== undefined) {
+        if (val === undefined) {
           this.$store.commit('clearLessons');
           this.$store.commit('clearTarget');
           return;
         }
+        const target = this.items.find(el => (el.title === val));
+        const type = target.type;
+        this.$store.commit('updateTarget', target);
         let lessonsURI;
         switch (type) {
           case 'professor':
@@ -63,7 +63,11 @@
         }
 
         axios.get(lessonsURI, {params: {}}).then(result => {
-          this.$store.commit('updateLessons', result.data)
+          if (result.data === []) {
+            this.$store.commit('notFindLessons')
+          } else {
+            this.$store.commit('updateLessons', result.data)
+          }
         }).catch(err => {
           this.$store.commit('clearLessons')
           console.log(err);
@@ -74,7 +78,8 @@
     created() {
       this.completeSuggest = _.debounce(function(val) {
         if (this.loading) return;
-        if (val !== null && val.length < 3) return;
+        if (val === null) return;
+        if (val.length < 3) return;
         this.loading = true;
 
         axios.get('https://dev.muindor.com/api/rasp/suggest', {params: {suggest: val, limit: 15}}).then(res => {

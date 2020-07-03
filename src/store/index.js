@@ -7,10 +7,16 @@ export default new Vuex.Store({
   state: {
     target: {},
     lessons: [],
+    notFind: false
   },
   mutations: {
     updateLessons: (state, payload) => {
       state.lessons = payload;
+      state.notFind = false;
+    },
+    notFindLessons: (state) => {
+      state.lessons = [];
+      state.notFind = true;
     },
     clearLessons: (state) => (state.lessons = []),
     updateTarget: (state, payload) => {

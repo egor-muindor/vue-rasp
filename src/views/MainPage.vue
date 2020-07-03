@@ -25,8 +25,19 @@
                 justify-center
                 row
         >
-            <v-flex v-if="lessons" md8>
-                <v-layout row>
+            <v-flex v-if="notFind" md6 sm8 py-2>
+                <v-card>
+                    <v-card-title>
+                    </v-card-title>
+                    <v-card-text>
+                        Расписание для {{ target.type === 'group' ? 'группы' : 'преподавателя' }} "{{ target.title }}" не найдено.
+                    </v-card-text>
+                    <v-card-actions>
+                    </v-card-actions>
+                </v-card>
+            </v-flex>
+            <v-flex v-if="lessons && !notFind" md8>
+                <v-layout row justify-center>
                     <v-flex
                             v-for="(lesson, key) in lessons" :key="`${key}-${lesson.subject}`"
                             xl3 lg4 md6 sm8
@@ -158,6 +169,9 @@
     computed: {
       lessons() {
         return this.$store.state.lessons;
+      },
+      notFind() {
+        return this.$store.state.notFind;
       },
       target() {
         return this.$store.state.target;
